@@ -82,8 +82,8 @@
 
         <!-- Match Info Bottom -->
         <div class="absolute bottom-3.5 left-4 right-4">
-          <p class="text-emerald-400 text-xs font-extrabold uppercase tracking-widest mb-0.5 flex items-center gap-1">
-            <span>⚽</span> ¡SALE FULBITO!
+          <p id="heroBrandTag" class="text-emerald-400 text-xs font-extrabold uppercase tracking-widest mb-0.5 flex items-center gap-1">
+            <span>⚽</span> <span id="heroBrandTagText">¡SALE FULBITO!</span>
           </p>
           <h1 id="heroMatchTitle" class="text-2xl sm:text-3xl font-black text-white tracking-tight leading-tight">
             Fútbol 5 · Los Jueves
@@ -102,7 +102,7 @@
       </div>
 
       <!-- Scoreboard Progress Strip -->
-      <div class="bg-[#0d1c15] px-4 py-3 border-t border-emerald-500/20">
+      <div id="progressStrip" class="bg-[#0d1c15] px-4 py-3 border-t border-emerald-500/20">
         <div class="flex items-center justify-between text-xs font-bold mb-1.5">
           <span id="progressLabel" class="text-emerald-300">7 de 10 titulares confirmados</span>
           <span id="spotsLeftBadge" class="text-amber-300">Faltan 3</span>
@@ -136,13 +136,26 @@
     <!-- ==================== VIEW 1: PLAYER SIGN-UP ==================== -->
     <main id="playerView" class="space-y-4">
 
+      <!-- Optional Custom Announcement Banner -->
+      <section id="announcementBanner" class="hidden rounded-2xl p-3.5 bg-amber-500/12 border border-amber-400/35 shadow-lg">
+        <div class="flex items-start gap-2.5">
+          <span class="text-lg leading-none mt-0.5 shrink-0">📢</span>
+          <p id="announcementText" class="text-xs sm:text-sm font-semibold text-amber-100 whitespace-pre-line leading-relaxed"></p>
+        </div>
+      </section>
+
       <!-- Super Easy Sign-Up Form Card -->
-      <section class="glass-card rounded-3xl p-4 sm:p-5 shadow-xl">
+      <section id="signupSection" class="glass-card rounded-3xl p-4 sm:p-5 shadow-xl">
         <div class="flex items-center justify-between mb-3">
           <h2 class="text-base sm:text-lg font-extrabold text-white flex items-center gap-2">
             <span class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-base">👟</span>
-            ¿Jugás? Anotate en 2 segundos
+            <span id="signupCardTitleText">¿Jugás? Anotate en 2 segundos</span>
           </h2>
+        </div>
+
+        <div id="signupClosedNotice" class="hidden p-4 rounded-2xl bg-slate-950/75 border border-amber-400/30 text-center space-y-1">
+          <p class="text-sm font-extrabold text-amber-300">🔒 Inscripciones cerradas por el DT</p>
+          <p class="text-xs text-slate-400">Consultá por WhatsApp si se libera algún lugar.</p>
         </div>
 
         <form id="signupForm" class="space-y-3" novalidate>
@@ -163,7 +176,7 @@
           </div>
 
           <!-- Quick Position Chips (1-tap optional) -->
-          <div class="grid grid-cols-2 gap-2">
+          <div id="positionPickerWrap" class="grid grid-cols-2 gap-2">
             <button
               type="button"
               id="posFieldBtn"
@@ -205,11 +218,11 @@
       </section>
 
       <!-- Mini Tactical Pitch Visualizer -->
-      <section class="pitch-stripes rounded-3xl p-4 border border-emerald-500/25 relative overflow-hidden">
+      <section id="pitchSection" class="pitch-stripes rounded-3xl p-4 border border-emerald-500/25 relative overflow-hidden">
         <div class="flex items-center justify-between mb-3">
           <h3 class="text-xs font-extrabold uppercase tracking-widest text-emerald-300 flex items-center gap-1.5">
             <i data-lucide="shield" class="w-3.5 h-3.5"></i>
-            Lugares en cancha
+            <span id="pitchTitleText">Lugares en cancha</span>
           </h3>
           <span id="gkCountLabel" class="text-xs font-semibold text-amber-300">🧤 1 arquero</span>
         </div>
@@ -221,7 +234,7 @@
         <div class="flex items-center justify-between gap-2 mb-3.5">
           <div>
             <h2 class="text-base sm:text-lg font-extrabold text-white flex items-center gap-2">
-              La Lista
+              <span id="rosterTitleText">La Lista</span>
               <span id="rosterCountPill" class="px-2 py-0.5 rounded-full text-xs font-extrabold bg-emerald-500/20 text-emerald-300">7</span>
             </h2>
           </div>
@@ -251,7 +264,7 @@
         <!-- Substitutes List -->
         <div id="subsSection" class="hidden mt-5 pt-4 border-t border-slate-700/60">
           <h3 class="text-xs font-extrabold uppercase tracking-wider text-amber-300 mb-2.5 flex items-center gap-1.5">
-            <span>🪑</span> Banco de Suplentes
+            <span>🪑</span> <span id="subsTitleText">Banco de Suplentes</span>
             <span id="subsCountPill" class="px-1.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[11px]">0</span>
           </h3>
           <div id="subsList" class="space-y-2"></div>
@@ -289,7 +302,7 @@
             Entrar al Panel DT
           </button>
         </form>
-        <p class="mt-4 text-xs text-slate-400">
+        <p id="defaultPinHint" class="mt-4 text-xs text-slate-400">
           PIN por defecto para probar: <span class="font-mono font-bold text-amber-300 bg-amber-500/10 px-2 py-0.5 rounded">1234</span>
         </p>
       </div>
@@ -333,18 +346,26 @@
         </div>
 
         <!-- Admin Sub-tabs -->
-        <div class="grid grid-cols-4 gap-1 p-1 rounded-2xl bg-[#0e1d16] border border-emerald-500/15">
-          <button type="button" data-admintab="roster" class="admin-subtab py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold bg-slate-800 text-white transition">
-            👥 Anotados
+        <div class="grid grid-cols-5 gap-1 p-1 rounded-2xl bg-[#0e1d16] border border-emerald-500/15">
+          <button type="button" data-admintab="roster" class="admin-subtab flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-xl text-[10px] sm:text-xs font-bold bg-slate-800 text-white transition">
+            <span class="text-sm leading-none">👥</span>
+            <span>Anotados</span>
           </button>
-          <button type="button" data-admintab="teams" class="admin-subtab py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold text-slate-400 hover:text-white transition">
-            🔀 Equipos
+          <button type="button" data-admintab="teams" class="admin-subtab flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-xl text-[10px] sm:text-xs font-bold text-slate-400 hover:text-white transition">
+            <span class="text-sm leading-none">🔀</span>
+            <span>Equipos</span>
           </button>
-          <button type="button" data-admintab="config" class="admin-subtab py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold text-slate-400 hover:text-white transition">
-            ⚙️ Partido
+          <button type="button" data-admintab="config" class="admin-subtab flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-xl text-[10px] sm:text-xs font-bold text-slate-400 hover:text-white transition">
+            <span class="text-sm leading-none">⚙️</span>
+            <span>Partido</span>
           </button>
-          <button type="button" data-admintab="cloud" class="admin-subtab py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold text-slate-400 hover:text-white transition">
-            ☁️ Nube
+          <button type="button" data-admintab="editor" class="admin-subtab flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-xl text-[10px] sm:text-xs font-bold text-slate-400 hover:text-white transition">
+            <span class="text-sm leading-none">🎨</span>
+            <span>Página</span>
+          </button>
+          <button type="button" data-admintab="cloud" class="admin-subtab flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-xl text-[10px] sm:text-xs font-bold text-slate-400 hover:text-white transition">
+            <span class="text-sm leading-none">☁️</span>
+            <span>Nube</span>
           </button>
         </div>
 
@@ -439,37 +460,44 @@
 
         <!-- Subtab 3: Match Settings -->
         <div id="adminConfigPane" class="hidden glass-card rounded-3xl p-4">
-          <h3 class="text-base font-extrabold text-white mb-3">Configuración del Partido</h3>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <h3 class="text-base font-extrabold text-white">Configuración del Partido</h3>
+            <span id="configDirtyBadge" class="hidden px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-400/35">
+              Sin guardar
+            </span>
+          </div>
           <form id="matchConfigForm" class="space-y-3">
             <div>
               <label for="cfgTitle" class="block text-xs font-semibold text-slate-300 mb-1">Nombre del partido</label>
-              <input id="cfgTitle" type="text" maxlength="40" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700 text-base text-white focus:outline-none focus:border-emerald-400" required />
+              <input id="cfgTitle" type="text" maxlength="50" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700 text-base text-white focus:outline-none focus:border-emerald-400" required />
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label for="cfgDate" class="block text-xs font-semibold text-slate-300 mb-1">Día y hora</label>
-                <input id="cfgDate" type="text" maxlength="36" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700 text-base text-white focus:outline-none focus:border-emerald-400" required />
+                <input id="cfgDate" type="text" maxlength="40" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700 text-base text-white focus:outline-none focus:border-emerald-400" required />
               </div>
               <div>
                 <label for="cfgVenue" class="block text-xs font-semibold text-slate-300 mb-1">Cancha / Lugar</label>
-                <input id="cfgVenue" type="text" maxlength="40" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700 text-base text-white focus:outline-none focus:border-emerald-400" required />
+                <input id="cfgVenue" type="text" maxlength="50" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700 text-base text-white focus:outline-none focus:border-emerald-400" required />
               </div>
             </div>
             <div class="grid grid-cols-2 gap-3">
               <div>
                 <label for="cfgMaxPlayers" class="block text-xs font-semibold text-slate-300 mb-1">Cupo titulares</label>
                 <select id="cfgMaxPlayers" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700 text-base text-white focus:outline-none focus:border-emerald-400">
+                  <option value="8">8 (Fútbol 4)</option>
                   <option value="10">10 (Fútbol 5)</option>
                   <option value="12">12 (Fútbol 6)</option>
                   <option value="14">14 (Fútbol 7)</option>
                   <option value="16">16 (Fútbol 8)</option>
                   <option value="18">18 (Fútbol 9)</option>
+                  <option value="20">20 (Fútbol 10)</option>
                   <option value="22">22 (Fútbol 11)</option>
                 </select>
               </div>
               <div>
                 <label for="cfgPrice" class="block text-xs font-semibold text-slate-300 mb-1">Valor cancha c/u</label>
-                <input id="cfgPrice" type="text" maxlength="20" placeholder="Ej: $4.500 c/u" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700 text-base text-white focus:outline-none focus:border-emerald-400" />
+                <input id="cfgPrice" type="text" maxlength="24" placeholder="Ej: $4.500 c/u" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950/80 border border-slate-700 text-base text-white focus:outline-none focus:border-emerald-400" />
               </div>
             </div>
             <div>
@@ -485,7 +513,150 @@
           </form>
         </div>
 
-        <!-- Subtab 4: Cloud Sync (Firebase Realtime Database) -->
+        <!-- Subtab 4: Page & Titles Editor -->
+        <div id="adminEditorPane" class="hidden glass-card rounded-3xl p-4 space-y-4">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <h3 class="text-base font-extrabold text-white flex items-center gap-1.5">
+                <span>🎨</span> Editor de Página
+              </h3>
+              <p class="text-xs text-slate-400 mt-0.5">
+                Cambiá títulos, agregá un aviso o activá/ocultá secciones. Se actualiza para todo el grupo.
+              </p>
+            </div>
+            <span id="editorDirtyBadge" class="hidden shrink-0 px-2 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-300 border border-amber-400/35">
+              Sin guardar
+            </span>
+          </div>
+
+          <form id="pageEditorForm" class="space-y-4">
+            <!-- Section A: Optional Announcement -->
+            <div class="rounded-2xl p-3.5 bg-slate-950/60 border border-amber-500/25 space-y-2">
+              <label for="edAnnouncement" class="block text-xs font-extrabold uppercase tracking-wider text-amber-300">
+                📢 Aviso del DT (opcional)
+              </label>
+              <textarea
+                id="edAnnouncement"
+                rows="2"
+                maxlength="240"
+                placeholder="Ej: Traer pechera oscura o blanca · Alias para transferir: fulbito.mp (dejalo vacío para ocultarlo)"
+                class="w-full px-3 py-2.5 rounded-xl bg-slate-950/90 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 resize-y"
+              ></textarea>
+            </div>
+
+            <!-- Section B: Show / Hide Elements -->
+            <div class="rounded-2xl p-3.5 bg-slate-950/60 border border-slate-800 space-y-2.5">
+              <p class="text-xs font-extrabold uppercase tracking-wider text-emerald-300">
+                👁️ Mostrar u ocultar secciones
+              </p>
+              <div class="space-y-2">
+                <label class="flex items-center justify-between gap-3 p-2.5 rounded-xl bg-slate-900/70 border border-slate-800 cursor-pointer">
+                  <span class="text-xs sm:text-sm font-semibold text-slate-200">Inscripciones abiertas (permitir anotarse)</span>
+                  <input id="edAllowSignup" type="checkbox" class="w-5 h-5 rounded accent-emerald-500 shrink-0" />
+                </label>
+                <label class="flex items-center justify-between gap-3 p-2.5 rounded-xl bg-slate-900/70 border border-slate-800 cursor-pointer">
+                  <span class="text-xs sm:text-sm font-semibold text-slate-200">Mostrar precio en la portada</span>
+                  <input id="edShowPrice" type="checkbox" class="w-5 h-5 rounded accent-emerald-500 shrink-0" />
+                </label>
+                <label class="flex items-center justify-between gap-3 p-2.5 rounded-xl bg-slate-900/70 border border-slate-800 cursor-pointer">
+                  <span class="text-xs sm:text-sm font-semibold text-slate-200">Mostrar barra de cupos y progreso</span>
+                  <input id="edShowProgress" type="checkbox" class="w-5 h-5 rounded accent-emerald-500 shrink-0" />
+                </label>
+                <label class="flex items-center justify-between gap-3 p-2.5 rounded-xl bg-slate-900/70 border border-slate-800 cursor-pointer">
+                  <span class="text-xs sm:text-sm font-semibold text-slate-200">Mostrar cancha visual ("Lugares en cancha")</span>
+                  <input id="edShowPitch" type="checkbox" class="w-5 h-5 rounded accent-emerald-500 shrink-0" />
+                </label>
+                <label class="flex items-center justify-between gap-3 p-2.5 rounded-xl bg-slate-900/70 border border-slate-800 cursor-pointer">
+                  <span class="text-xs sm:text-sm font-semibold text-slate-200">Mostrar selector Jugador / Arquero</span>
+                  <input id="edShowPositionPicker" type="checkbox" class="w-5 h-5 rounded accent-emerald-500 shrink-0" />
+                </label>
+                <label class="flex items-center justify-between gap-3 p-2.5 rounded-xl bg-slate-900/70 border border-slate-800 cursor-pointer">
+                  <span class="text-xs sm:text-sm font-semibold text-slate-200">Mostrar botón "Copiar p/ WhatsApp"</span>
+                  <input id="edShowWhatsappBtn" type="checkbox" class="w-5 h-5 rounded accent-emerald-500 shrink-0" />
+                </label>
+                <label class="flex items-center justify-between gap-3 p-2.5 rounded-xl bg-slate-900/70 border border-slate-800 cursor-pointer">
+                  <span class="text-xs sm:text-sm font-semibold text-slate-200">Mostrar estado "✓ Pagó" en la lista pública</span>
+                  <input id="edShowPaidStatus" type="checkbox" class="w-5 h-5 rounded accent-emerald-500 shrink-0" />
+                </label>
+                <label class="flex items-center justify-between gap-3 p-2.5 rounded-xl bg-slate-900/70 border border-slate-800 cursor-pointer">
+                  <span class="text-xs sm:text-sm font-semibold text-slate-200">Mostrar pista de PIN 1234 en login DT</span>
+                  <input id="edShowDefaultPinHint" type="checkbox" class="w-5 h-5 rounded accent-emerald-500 shrink-0" />
+                </label>
+              </div>
+            </div>
+
+            <!-- Section C: Editable Titles & Labels -->
+            <div class="rounded-2xl p-3.5 bg-slate-950/60 border border-slate-800 space-y-3">
+              <p class="text-xs font-extrabold uppercase tracking-wider text-emerald-300">
+                ✏️ Títulos y textos
+              </p>
+              <div>
+                <label for="edBrandTag" class="block text-xs font-semibold text-slate-300 mb-1">Etiqueta superior (dejá vacía para ocultarla)</label>
+                <input id="edBrandTag" type="text" maxlength="36" placeholder="Ej: ¡SALE FULBITO!" class="w-full px-3 py-2 rounded-xl bg-slate-950/90 border border-slate-700 text-sm text-white focus:outline-none focus:border-emerald-400" />
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <div>
+                  <label for="edStatusOpenText" class="block text-xs font-semibold text-slate-300 mb-1">Estado (con lugar)</label>
+                  <input id="edStatusOpenText" type="text" maxlength="32" class="w-full px-3 py-2 rounded-xl bg-slate-950/90 border border-slate-700 text-sm text-white focus:outline-none focus:border-emerald-400" />
+                </div>
+                <div>
+                  <label for="edStatusFullText" class="block text-xs font-semibold text-slate-300 mb-1">Estado (cupo lleno)</label>
+                  <input id="edStatusFullText" type="text" maxlength="32" class="w-full px-3 py-2 rounded-xl bg-slate-950/90 border border-slate-700 text-sm text-white focus:outline-none focus:border-emerald-400" />
+                </div>
+              </div>
+              <div>
+                <label for="edSignupTitle" class="block text-xs font-semibold text-slate-300 mb-1">Título del formulario de anotarse</label>
+                <input id="edSignupTitle" type="text" maxlength="50" class="w-full px-3 py-2 rounded-xl bg-slate-950/90 border border-slate-700 text-sm text-white focus:outline-none focus:border-emerald-400" />
+              </div>
+              <div>
+                <label for="edSignupBtnText" class="block text-xs font-semibold text-slate-300 mb-1">Texto del botón principal</label>
+                <input id="edSignupBtnText" type="text" maxlength="36" class="w-full px-3 py-2 rounded-xl bg-slate-950/90 border border-slate-700 text-sm text-white focus:outline-none focus:border-emerald-400" />
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <div>
+                  <label for="edPitchTitle" class="block text-xs font-semibold text-slate-300 mb-1">Título de la cancha</label>
+                  <input id="edPitchTitle" type="text" maxlength="36" class="w-full px-3 py-2 rounded-xl bg-slate-950/90 border border-slate-700 text-sm text-white focus:outline-none focus:border-emerald-400" />
+                </div>
+                <div>
+                  <label for="edRosterTitle" class="block text-xs font-semibold text-slate-300 mb-1">Título de la lista</label>
+                  <input id="edRosterTitle" type="text" maxlength="36" class="w-full px-3 py-2 rounded-xl bg-slate-950/90 border border-slate-700 text-sm text-white focus:outline-none focus:border-emerald-400" />
+                </div>
+              </div>
+              <div>
+                <label for="edSubsTitle" class="block text-xs font-semibold text-slate-300 mb-1">Título de suplentes</label>
+                <input id="edSubsTitle" type="text" maxlength="36" class="w-full px-3 py-2 rounded-xl bg-slate-950/90 border border-slate-700 text-sm text-white focus:outline-none focus:border-emerald-400" />
+              </div>
+              <div class="grid grid-cols-2 gap-2.5">
+                <div>
+                  <label for="edTeamAName" class="block text-xs font-semibold text-slate-300 mb-1">Nombre Equipo 1</label>
+                  <input id="edTeamAName" type="text" maxlength="28" class="w-full px-3 py-2 rounded-xl bg-slate-950/90 border border-slate-700 text-sm text-white focus:outline-none focus:border-emerald-400" />
+                </div>
+                <div>
+                  <label for="edTeamBName" class="block text-xs font-semibold text-slate-300 mb-1">Nombre Equipo 2</label>
+                  <input id="edTeamBName" type="text" maxlength="28" class="w-full px-3 py-2 rounded-xl bg-slate-950/90 border border-slate-700 text-sm text-white focus:outline-none focus:border-emerald-400" />
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <button
+                type="submit"
+                class="w-full py-3.5 rounded-2xl font-extrabold text-sm uppercase tracking-wide bg-emerald-500 text-slate-950 hover:bg-emerald-400 active:scale-[0.98] transition shadow-lg"
+              >
+                Guardar cambios de la página
+              </button>
+              <button
+                id="resetPageEditorBtn"
+                type="button"
+                class="w-full py-2.5 rounded-xl text-xs font-bold bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white transition"
+              >
+                Restaurar textos originales
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Subtab 5: Cloud Sync (Firebase Realtime Database) -->
         <div id="adminCloudPane" class="hidden glass-card rounded-3xl p-4 space-y-4">
           <div class="flex items-start justify-between gap-2">
             <div>
@@ -641,6 +812,28 @@
       const STORAGE_KEY = 'fulbito_app_state_v1';
       const FB_URL_STORAGE_KEY = 'fulbito_firebase_url_v1';
 
+      const DEFAULT_UI = {
+        brandTag: '¡SALE FULBITO!',
+        announcement: '',
+        statusOpenText: 'Convocatoria Abierta',
+        statusFullText: 'Cupo Completo · Suplentes',
+        signupTitle: '¿Jugás? Anotate en 2 segundos',
+        signupBtnText: '¡ME ANOTO PARA JUGAR!',
+        pitchTitle: 'Lugares en cancha',
+        rosterTitle: 'La Lista',
+        subsTitle: 'Banco de Suplentes',
+        teamAName: 'Equipo Pechera',
+        teamBName: 'Sin Pechera',
+        allowSignup: true,
+        showPrice: true,
+        showProgress: true,
+        showPitch: true,
+        showPositionPicker: true,
+        showWhatsappBtn: true,
+        showPaidStatus: true,
+        showDefaultPinHint: true
+      };
+
       const DEFAULT_STATE = {
         match: {
           title: 'Fútbol 5 · Los Jueves',
@@ -648,7 +841,8 @@
           venue: 'Complejo La Cancha · C2',
           maxPlayers: 10,
           price: '$4.500 c/u',
-          adminPin: '1234'
+          adminPin: '1234',
+          ui: Object.assign({}, DEFAULT_UI)
         },
         players: [
           { id: 'p1', name: 'Tincho', pos: 'Jugador', role: 'starter', paid: true, time: '18:10', order: 1 },
@@ -673,6 +867,30 @@
       let lastGeneratedTeams = null;
       let pendingConfirmAction = null;
       let toastTimer = null;
+      let configFormDirty = false;
+      let editorFormDirty = false;
+      let lastLocalMutationTs = 0;
+
+      function getUi() {
+        return Object.assign({}, DEFAULT_UI, (state.match && state.match.ui) || {});
+      }
+
+      function isFocusInside(formId) {
+        const form = document.getElementById(formId);
+        return Boolean(form && document.activeElement && form.contains(document.activeElement));
+      }
+
+      function setConfigDirty(dirty) {
+        configFormDirty = Boolean(dirty);
+        const badge = document.getElementById('configDirtyBadge');
+        if (badge) badge.classList.toggle('hidden', !configFormDirty);
+      }
+
+      function setEditorDirty(dirty) {
+        editorFormDirty = Boolean(dirty);
+        const badge = document.getElementById('editorDirtyBadge');
+        if (badge) badge.classList.toggle('hidden', !editorFormDirty);
+      }
 
       function normalizeFirebaseUrl(raw) {
         if (!raw) return '';
@@ -753,12 +971,17 @@
           renderCloudStatus();
           return false;
         }
+        const syncStartTs = Date.now();
         try {
           if (!silent) {
             cloudStatus = 'syncing';
             renderCloudStatus();
           }
           const data = await cloudFetch('/fulbito.json', 'GET');
+          // Skip applying stale poll response if a local save happened while fetching
+          if (silent && lastLocalMutationTs > syncStartTs) {
+            return true;
+          }
           if (!data || !data.match) {
             // Brand new database: push current match & roster
             await cloudFetch('/fulbito.json', 'PUT', {
@@ -766,7 +989,9 @@
               players: playersArrayToMap(state.players)
             });
           } else {
-            state.match = Object.assign({}, DEFAULT_STATE.match, data.match);
+            const mergedMatch = Object.assign({}, DEFAULT_STATE.match, data.match);
+            mergedMatch.ui = Object.assign({}, DEFAULT_UI, data.match.ui || {});
+            state.match = mergedMatch;
             state.players = playersMapToArray(data.players);
             saveState();
           }
@@ -785,6 +1010,7 @@
       }
 
       async function cloudSavePlayer(player) {
+        lastLocalMutationTs = Date.now();
         if (!firebaseUrl) return;
         try {
           await cloudFetch('/fulbito/players/' + encodeURIComponent(player.id) + '.json', 'PUT', player);
@@ -799,6 +1025,7 @@
       }
 
       async function cloudDeletePlayer(id) {
+        lastLocalMutationTs = Date.now();
         if (!firebaseUrl) return;
         try {
           await cloudFetch('/fulbito/players/' + encodeURIComponent(id) + '.json', 'DELETE');
@@ -812,6 +1039,7 @@
       }
 
       async function cloudSaveMatch() {
+        lastLocalMutationTs = Date.now();
         if (!firebaseUrl) return;
         try {
           await cloudFetch('/fulbito/match.json', 'PUT', state.match);
@@ -821,10 +1049,12 @@
         } catch (e) {
           cloudStatus = 'error';
           renderCloudStatus();
+          showToast('Guardado local (error al sincronizar con Firebase)');
         }
       }
 
       async function cloudSaveAll() {
+        lastLocalMutationTs = Date.now();
         if (!firebaseUrl) return;
         try {
           await cloudFetch('/fulbito.json', 'PUT', {
@@ -837,6 +1067,7 @@
         } catch (e) {
           cloudStatus = 'error';
           renderCloudStatus();
+          showToast('Guardado local (error al sincronizar con Firebase)');
         }
       }
 
@@ -858,6 +1089,9 @@
           if (raw) {
             const parsed = JSON.parse(raw);
             if (parsed && parsed.match && Array.isArray(parsed.players)) {
+              const mergedMatch = Object.assign({}, DEFAULT_STATE.match, parsed.match);
+              mergedMatch.ui = Object.assign({}, DEFAULT_UI, parsed.match.ui || {});
+              parsed.match = mergedMatch;
               return parsed;
             }
           }
@@ -1016,34 +1250,75 @@
       }
 
       function renderHero() {
+        const ui = getUi();
         const starters = getStarters();
         const max = Number(state.match.maxPlayers) || 10;
         const pct = Math.min(100, Math.round((starters.length / max) * 100));
         const remaining = Math.max(0, max - starters.length);
+
+        const brandTagEl = document.getElementById('heroBrandTag');
+        const brandTagTextEl = document.getElementById('heroBrandTagText');
+        if (ui.brandTag && ui.brandTag.trim()) {
+          brandTagTextEl.textContent = ui.brandTag.trim();
+          brandTagEl.classList.remove('hidden');
+          document.title = ui.brandTag.trim() + ' — ' + state.match.title;
+        } else {
+          brandTagEl.classList.add('hidden');
+          document.title = state.match.title;
+        }
 
         document.getElementById('heroMatchTitle').textContent = state.match.title;
         document.getElementById('heroMatchDate').textContent = state.match.date;
         document.getElementById('heroMatchVenue').textContent = state.match.venue;
 
         const priceBadge = document.getElementById('heroPriceBadge');
-        if (state.match.price && state.match.price.trim()) {
+        if (ui.showPrice && state.match.price && state.match.price.trim()) {
           priceBadge.textContent = state.match.price;
           priceBadge.classList.remove('hidden');
         } else {
           priceBadge.classList.add('hidden');
         }
 
+        const progressStrip = document.getElementById('progressStrip');
+        if (progressStrip) {
+          progressStrip.classList.toggle('hidden', !ui.showProgress);
+        }
+
+        // Announcement Banner
+        const announcementBanner = document.getElementById('announcementBanner');
+        const announcementText = document.getElementById('announcementText');
+        if (ui.announcement && ui.announcement.trim()) {
+          announcementText.textContent = ui.announcement.trim();
+          announcementBanner.classList.remove('hidden');
+        } else {
+          announcementBanner.classList.add('hidden');
+        }
+
+        // Signup Card Title, Open/Closed & Position Picker
+        document.getElementById('signupCardTitleText').textContent =
+          (ui.signupTitle && ui.signupTitle.trim()) ? ui.signupTitle.trim() : DEFAULT_UI.signupTitle;
+        document.getElementById('signupForm').classList.toggle('hidden', !ui.allowSignup);
+        document.getElementById('signupClosedNotice').classList.toggle('hidden', ui.allowSignup);
+        document.getElementById('positionPickerWrap').classList.toggle('hidden', !ui.showPositionPicker);
+
+        const openStatusLabel = (ui.statusOpenText && ui.statusOpenText.trim()) ? ui.statusOpenText.trim() : DEFAULT_UI.statusOpenText;
+        const fullStatusLabel = (ui.statusFullText && ui.statusFullText.trim()) ? ui.statusFullText.trim() : DEFAULT_UI.statusFullText;
+        const mainBtnLabel = (ui.signupBtnText && ui.signupBtnText.trim()) ? ui.signupBtnText.trim() : DEFAULT_UI.signupBtnText;
+
         const statusBadge = document.getElementById('heroStatusBadge');
         const submitBtn = document.getElementById('signupSubmitBtn');
-        if (remaining === 0) {
+        if (!ui.allowSignup) {
+          statusBadge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-extrabold tracking-wide uppercase bg-slate-800 text-amber-300 border border-amber-400/40 shadow';
+          statusBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-amber-400"></span> Lista Cerrada';
+        } else if (remaining === 0) {
           statusBadge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-extrabold tracking-wide uppercase bg-amber-400 text-slate-950 shadow';
-          statusBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-slate-950"></span> Cupo Completo · Suplentes';
+          statusBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-slate-950"></span> ' + escapeHtml(fullStatusLabel);
           submitBtn.innerHTML = '<span>ANOTARME COMO SUPLENTE 🪑</span>';
           submitBtn.className = 'w-full py-4 px-5 rounded-2xl font-black text-base tracking-wide uppercase text-slate-950 bg-gradient-to-r from-amber-300 to-amber-400 hover:brightness-110 active:scale-[0.98] transition-all shadow-lg shadow-amber-500/20 flex items-center justify-center gap-2';
         } else {
           statusBadge.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-extrabold tracking-wide uppercase bg-emerald-500/95 text-slate-950 shadow';
-          statusBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-slate-950 animate-pulse"></span> Convocatoria Abierta';
-          submitBtn.innerHTML = '<span>¡ME ANOTO PARA JUGAR!</span><i data-lucide="check-circle-2" class="w-5 h-5"></i>';
+          statusBadge.innerHTML = '<span class="w-2 h-2 rounded-full bg-slate-950 animate-pulse"></span> ' + escapeHtml(openStatusLabel);
+          submitBtn.innerHTML = '<span>' + escapeHtml(mainBtnLabel) + '</span><i data-lucide="check-circle-2" class="w-5 h-5"></i>';
           submitBtn.className = 'w-full py-4 px-5 rounded-2xl font-black text-base tracking-wide uppercase text-slate-950 bg-gradient-to-r from-emerald-400 via-emerald-500 to-lime-400 hover:brightness-110 active:scale-[0.98] transition-all shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2';
         }
 
@@ -1055,6 +1330,14 @@
       }
 
       function renderPitchSlots() {
+        const ui = getUi();
+        const pitchSection = document.getElementById('pitchSection');
+        if (pitchSection) {
+          pitchSection.classList.toggle('hidden', !ui.showPitch);
+        }
+        document.getElementById('pitchTitleText').textContent =
+          (ui.pitchTitle && ui.pitchTitle.trim()) ? ui.pitchTitle.trim() : DEFAULT_UI.pitchTitle;
+
         const starters = getStarters();
         const max = Number(state.match.maxPlayers) || 10;
         const gkCount = starters.filter(p => p.pos === 'Arquero').length;
@@ -1093,8 +1376,14 @@
       }
 
       function renderPlayerRoster() {
+        const ui = getUi();
         const starters = getStarters();
         const subs = getSubs();
+        document.getElementById('rosterTitleText').textContent =
+          (ui.rosterTitle && ui.rosterTitle.trim()) ? ui.rosterTitle.trim() : DEFAULT_UI.rosterTitle;
+        document.getElementById('subsTitleText').textContent =
+          (ui.subsTitle && ui.subsTitle.trim()) ? ui.subsTitle.trim() : DEFAULT_UI.subsTitle;
+        document.getElementById('copyWhatsappBtn').classList.toggle('hidden', !ui.showWhatsappBtn);
         document.getElementById('rosterCountPill').textContent = state.players.length;
 
         const startersEl = document.getElementById('startersList');
@@ -1123,7 +1412,7 @@
                   </div>
                 </div>
                 <div class="shrink-0">
-                  ${p.paid
+                  ${(ui.showPaidStatus && p.paid)
                     ? '<span class="px-2 py-1 rounded-lg text-[11px] font-bold bg-sky-500/15 text-sky-300 border border-sky-400/25">✓ Pagó</span>'
                     : '<span class="px-2 py-1 rounded-lg text-[11px] font-bold bg-emerald-500/10 text-emerald-300">Adentro</span>'}
                 </div>
@@ -1160,9 +1449,16 @@
       }
 
       function renderAdminView() {
+        const ui = getUi();
         const loginCard = document.getElementById('adminLoginCard');
         const dashboard = document.getElementById('adminDashboard');
         const tabIcon = document.getElementById('adminTabIcon');
+        const pinHint = document.getElementById('defaultPinHint');
+
+        if (pinHint) {
+          const shouldShowHint = Boolean(ui.showDefaultPinHint) && String(state.match.adminPin || '1234') === '1234';
+          pinHint.classList.toggle('hidden', !shouldShowHint);
+        }
 
         if (adminUnlocked) {
           loginCard.classList.add('hidden');
@@ -1185,7 +1481,12 @@
         document.getElementById('kpiPaid').textContent = paidCount + '/' + state.players.length;
 
         renderAdminPlayersList();
-        populateConfigForm();
+        if (!configFormDirty && !isFocusInside('matchConfigForm')) {
+          populateConfigForm();
+        }
+        if (!editorFormDirty && !isFocusInside('pageEditorForm')) {
+          populateEditorForm();
+        }
       }
 
       function renderAdminPlayersList() {
@@ -1265,6 +1566,30 @@
         document.getElementById('cfgPin').value = state.match.adminPin || '1234';
       }
 
+      function populateEditorForm() {
+        const ui = getUi();
+        document.getElementById('edAnnouncement').value = ui.announcement || '';
+        document.getElementById('edAllowSignup').checked = Boolean(ui.allowSignup);
+        document.getElementById('edShowPrice').checked = Boolean(ui.showPrice);
+        document.getElementById('edShowProgress').checked = Boolean(ui.showProgress);
+        document.getElementById('edShowPitch').checked = Boolean(ui.showPitch);
+        document.getElementById('edShowPositionPicker').checked = Boolean(ui.showPositionPicker);
+        document.getElementById('edShowWhatsappBtn').checked = Boolean(ui.showWhatsappBtn);
+        document.getElementById('edShowPaidStatus').checked = Boolean(ui.showPaidStatus);
+        document.getElementById('edShowDefaultPinHint').checked = Boolean(ui.showDefaultPinHint);
+
+        document.getElementById('edBrandTag').value = ui.brandTag || '';
+        document.getElementById('edStatusOpenText').value = ui.statusOpenText || '';
+        document.getElementById('edStatusFullText').value = ui.statusFullText || '';
+        document.getElementById('edSignupTitle').value = ui.signupTitle || '';
+        document.getElementById('edSignupBtnText').value = ui.signupBtnText || '';
+        document.getElementById('edPitchTitle').value = ui.pitchTitle || '';
+        document.getElementById('edRosterTitle').value = ui.rosterTitle || '';
+        document.getElementById('edSubsTitle').value = ui.subsTitle || '';
+        document.getElementById('edTeamAName').value = ui.teamAName || '';
+        document.getElementById('edTeamBName').value = ui.teamBName || '';
+      }
+
       // ---- Navigation Switching ----
       function switchMainView(view) {
         currentView = view;
@@ -1292,13 +1617,20 @@
         document.getElementById('adminRosterPane').classList.toggle('hidden', tab !== 'roster');
         document.getElementById('adminTeamsPane').classList.toggle('hidden', tab !== 'teams');
         document.getElementById('adminConfigPane').classList.toggle('hidden', tab !== 'config');
+        document.getElementById('adminEditorPane').classList.toggle('hidden', tab !== 'editor');
         document.getElementById('adminCloudPane').classList.toggle('hidden', tab !== 'cloud');
+
+        if (tab === 'config' && !configFormDirty) {
+          populateConfigForm();
+        } else if (tab === 'editor' && !editorFormDirty) {
+          populateEditorForm();
+        }
 
         document.querySelectorAll('.admin-subtab').forEach(btn => {
           const active = btn.getAttribute('data-admintab') === tab;
           btn.className = active
-            ? 'admin-subtab py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold bg-slate-800 text-white transition'
-            : 'admin-subtab py-2 px-1.5 rounded-xl text-[11px] sm:text-xs font-bold text-slate-400 hover:text-white transition';
+            ? 'admin-subtab flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-xl text-[10px] sm:text-xs font-bold bg-slate-800 text-white transition'
+            : 'admin-subtab flex flex-col items-center justify-center gap-0.5 py-2 px-1 rounded-xl text-[10px] sm:text-xs font-bold text-slate-400 hover:text-white transition';
         });
       }
 
@@ -1360,6 +1692,11 @@
 
       document.getElementById('signupForm').addEventListener('submit', (e) => {
         e.preventDefault();
+        const ui = getUi();
+        if (!ui.allowSignup) {
+          showToast('Las inscripciones están cerradas por el DT.');
+          return;
+        }
         const input = document.getElementById('playerNameInput');
         const errorEl = document.getElementById('signupError');
         const name = input.value.trim();
@@ -1387,7 +1724,7 @@
         const newPlayer = {
           id: 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
           name: name,
-          pos: selectedPosition,
+          pos: ui.showPositionPicker ? selectedPosition : 'Jugador',
           role: role,
           paid: false,
           time: getNowTime(),
@@ -1417,6 +1754,7 @@
 
       // Copy WhatsApp Roster
       document.getElementById('copyWhatsappBtn').addEventListener('click', () => {
+        const ui = getUi();
         const starters = getStarters();
         const subs = getSubs();
         const max = Number(state.match.maxPlayers) || 10;
@@ -1430,14 +1768,14 @@
           const p = starters[i];
           if (p) {
             const tag = p.pos === 'Arquero' ? ' 🧤' : '';
-            const paid = p.paid ? ' 💰' : '';
+            const paid = (ui.showPaidStatus && p.paid) ? ' 💰' : '';
             lines.push((i + 1) + '. ' + p.name + tag + paid);
           } else {
             lines.push((i + 1) + '. (libre)');
           }
         }
         if (subs.length > 0) {
-          lines.push('', '🪑 *Suplentes:*');
+          lines.push('', '🪑 *' + (ui.subsTitle || 'Suplentes') + ':*');
           subs.forEach((p, idx) => {
             lines.push('S' + (idx + 1) + '. ' + p.name + (p.pos === 'Arquero' ? ' 🧤' : ''));
           });
@@ -1453,9 +1791,13 @@
         const entered = pinInput.value.trim();
         if (entered === String(state.match.adminPin || '1234')) {
           adminUnlocked = true;
+          setConfigDirty(false);
+          setEditorDirty(false);
           pinInput.value = '';
           err.classList.add('hidden');
           renderAdminView();
+          populateConfigForm();
+          populateEditorForm();
           showToast('¡Bienvenido, DT! ⚽');
         } else {
           err.classList.remove('hidden');
@@ -1465,6 +1807,8 @@
 
       document.getElementById('adminLogoutBtn').addEventListener('click', () => {
         adminUnlocked = false;
+        setConfigDirty(false);
+        setEditorDirty(false);
         renderAdminView();
         showToast('Sesión DT cerrada');
       });
@@ -1622,10 +1966,17 @@
           try {
             const parsed = JSON.parse(String(reader.result));
             if (parsed && parsed.match && Array.isArray(parsed.players)) {
+              const mergedMatch = Object.assign({}, DEFAULT_STATE.match, parsed.match);
+              mergedMatch.ui = Object.assign({}, DEFAULT_UI, parsed.match.ui || {});
+              parsed.match = mergedMatch;
               state = parsed;
+              setConfigDirty(false);
+              setEditorDirty(false);
               saveState();
               cloudSaveAll();
               renderAll();
+              populateConfigForm();
+              populateEditorForm();
               showToast('Datos importados correctamente ✅');
             } else {
               showToast('El archivo no tiene el formato correcto.');
@@ -1638,8 +1989,17 @@
         reader.readAsText(file);
       });
 
+      // Track unsaved edits in Admin forms so cloud polling never overwrites user typing
+      const matchConfigFormEl = document.getElementById('matchConfigForm');
+      matchConfigFormEl.addEventListener('input', () => setConfigDirty(true));
+      matchConfigFormEl.addEventListener('change', () => setConfigDirty(true));
+
+      const pageEditorFormEl = document.getElementById('pageEditorForm');
+      pageEditorFormEl.addEventListener('input', () => setEditorDirty(true));
+      pageEditorFormEl.addEventListener('change', () => setEditorDirty(true));
+
       // Match Settings Form
-      document.getElementById('matchConfigForm').addEventListener('submit', (e) => {
+      matchConfigFormEl.addEventListener('submit', (e) => {
         e.preventDefault();
         const pin = document.getElementById('cfgPin').value.trim();
         if (pin.length < 4) {
@@ -1653,10 +2013,55 @@
         state.match.price = document.getElementById('cfgPrice').value.trim();
         state.match.adminPin = pin;
 
+        setConfigDirty(false);
         saveState();
         cloudSaveMatch();
         renderAll();
+        populateConfigForm();
         showToast('Configuración del partido guardada ⚙️');
+      });
+
+      // Page & Titles Editor Form
+      pageEditorFormEl.addEventListener('submit', (e) => {
+        e.preventDefault();
+        state.match.ui = {
+          brandTag: document.getElementById('edBrandTag').value.trim(),
+          announcement: document.getElementById('edAnnouncement').value.trim(),
+          statusOpenText: document.getElementById('edStatusOpenText').value.trim() || DEFAULT_UI.statusOpenText,
+          statusFullText: document.getElementById('edStatusFullText').value.trim() || DEFAULT_UI.statusFullText,
+          signupTitle: document.getElementById('edSignupTitle').value.trim() || DEFAULT_UI.signupTitle,
+          signupBtnText: document.getElementById('edSignupBtnText').value.trim() || DEFAULT_UI.signupBtnText,
+          pitchTitle: document.getElementById('edPitchTitle').value.trim() || DEFAULT_UI.pitchTitle,
+          rosterTitle: document.getElementById('edRosterTitle').value.trim() || DEFAULT_UI.rosterTitle,
+          subsTitle: document.getElementById('edSubsTitle').value.trim() || DEFAULT_UI.subsTitle,
+          teamAName: document.getElementById('edTeamAName').value.trim() || DEFAULT_UI.teamAName,
+          teamBName: document.getElementById('edTeamBName').value.trim() || DEFAULT_UI.teamBName,
+          allowSignup: document.getElementById('edAllowSignup').checked,
+          showPrice: document.getElementById('edShowPrice').checked,
+          showProgress: document.getElementById('edShowProgress').checked,
+          showPitch: document.getElementById('edShowPitch').checked,
+          showPositionPicker: document.getElementById('edShowPositionPicker').checked,
+          showWhatsappBtn: document.getElementById('edShowWhatsappBtn').checked,
+          showPaidStatus: document.getElementById('edShowPaidStatus').checked,
+          showDefaultPinHint: document.getElementById('edShowDefaultPinHint').checked
+        };
+
+        setEditorDirty(false);
+        saveState();
+        cloudSaveMatch();
+        renderAll();
+        populateEditorForm();
+        showToast('Cambios de la página guardados 🎨');
+      });
+
+      document.getElementById('resetPageEditorBtn').addEventListener('click', () => {
+        state.match.ui = Object.assign({}, DEFAULT_UI);
+        setEditorDirty(false);
+        saveState();
+        cloudSaveMatch();
+        renderAll();
+        populateEditorForm();
+        showToast('Textos y secciones restaurados ✅');
       });
 
       // Team Shuffler
@@ -1672,6 +2077,9 @@
       }
 
       document.getElementById('shuffleTeamsBtn').addEventListener('click', () => {
+        const ui = getUi();
+        const teamALabel = (ui.teamAName && ui.teamAName.trim()) ? ui.teamAName.trim() : DEFAULT_UI.teamAName;
+        const teamBLabel = (ui.teamBName && ui.teamBName.trim()) ? ui.teamBName.trim() : DEFAULT_UI.teamBName;
         const starters = getStarters();
         if (starters.length < 2) {
           showToast('Necesitás al menos 2 titulares para armar equipos.');
@@ -1698,7 +2106,7 @@
         out.innerHTML = `
           <div class="rounded-2xl p-3.5 bg-amber-400/10 border border-amber-400/35">
             <h4 class="text-xs font-black uppercase tracking-wider text-amber-300 mb-2 flex items-center gap-1.5">
-              <span>🟡</span> Equipo Pechera (${teamA.length})
+              <span>🟡</span> ${escapeHtml(teamALabel)} (${teamA.length})
             </h4>
             <ul class="space-y-1.5 text-sm font-semibold text-white">
               ${teamA.map(p => `<li class="flex items-center justify-between"><span>${escapeHtml(p.name)}</span>${p.pos === 'Arquero' ? '<span class="text-xs text-amber-300">🧤</span>' : ''}</li>`).join('')}
@@ -1706,7 +2114,7 @@
           </div>
           <div class="rounded-2xl p-3.5 bg-slate-800/80 border border-slate-600/60">
             <h4 class="text-xs font-black uppercase tracking-wider text-slate-200 mb-2 flex items-center gap-1.5">
-              <span>⚫</span> Sin Pechera (${teamB.length})
+              <span>⚫</span> ${escapeHtml(teamBLabel)} (${teamB.length})
             </h4>
             <ul class="space-y-1.5 text-sm font-semibold text-white">
               ${teamB.map(p => `<li class="flex items-center justify-between"><span>${escapeHtml(p.name)}</span>${p.pos === 'Arquero' ? '<span class="text-xs text-amber-300">🧤</span>' : ''}</li>`).join('')}
@@ -1719,14 +2127,17 @@
 
       document.getElementById('copyTeamsBtn').addEventListener('click', () => {
         if (!lastGeneratedTeams) return;
+        const ui = getUi();
+        const teamALabel = (ui.teamAName && ui.teamAName.trim()) ? ui.teamAName.trim() : DEFAULT_UI.teamAName;
+        const teamBLabel = (ui.teamBName && ui.teamBName.trim()) ? ui.teamBName.trim() : DEFAULT_UI.teamBName;
         const { teamA, teamB } = lastGeneratedTeams;
         const lines = [
           '⚽ *EQUIPOS — ' + state.match.title.toUpperCase() + '*',
           '',
-          '🟡 *Equipo Pechera:*',
+          '🟡 *' + teamALabel + ':*',
           ...teamA.map((p, i) => (i + 1) + '. ' + p.name + (p.pos === 'Arquero' ? ' 🧤' : '')),
           '',
-          '⚫ *Sin Pechera:*',
+          '⚫ *' + teamBLabel + ':*',
           ...teamB.map((p, i) => (i + 1) + '. ' + p.name + (p.pos === 'Arquero' ? ' 🧤' : ''))
         ];
         copyTextToClipboard(lines.join('\n'), '¡Equipos copiados para WhatsApp! 📋');
